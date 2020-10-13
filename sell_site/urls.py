@@ -19,7 +19,16 @@ from main_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #post
     path('update_key', views.update_key.as_view(), name='update_key'),
+    #post
     path('key_validate', views.key_isvalid.as_view(), name='key_validate'),
+    #post
     path('send_error', views.make_log.as_view(), name='send_error'),
+    ##get
+    path('phone_validate', views.phone_validate.as_view(), name='phone_validate'),
+    ##get
+    path('interducer_validate', views.interducer_code_validate.as_view(), name='interducer_validate'),
+    ##post
+    path('save_details', views.save_details.as_view(), name='save_details'),
 ]

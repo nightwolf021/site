@@ -53,14 +53,25 @@ class user_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.user_model
-        fields = ('id',
-                  'phone_number',
-                  'key')
-        # 'had_bought',
-        # 'created_at',
-        # 'created_by',
-        # 'customer_code',
-        # 'introducer_code'
+        fields = ['phone_number',
+                  'key',
+                  'username',
+                  'password',
+                  'url',
+                  'created_at',
+                  'created_by',
+                  'had_bought',
+                  'customer_code',
+                  'introducer_code']
+
+    def save(self, **kwargs):
+            user = models.user_model.objects.get(phone_number=self.data['phone_number'])
+            user.username = self.data['username']
+            user.key = self.data['key']
+            user.password = self.data['password']
+            user.url = self.data['url']
+
+            user.save(update_fields=['username', 'key', 'password', 'url'])
 
 
 class error_serializer(serializers.ModelSerializer):

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +24,7 @@ SECRET_KEY = '_8mhlpu_e38*75zfycarw&zche5r7ds&4#b4)3n0&r^gqvva94'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sumato021.pythonanywhere.com']
 # '136.243.117.228'
 # Application definition
 
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'sell_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':  'sumato021$my_db',
+        'USERNAME': 'sumato021',
+        'PASSWORD': 'r13511351',
+        'HOST': 'sumato021.mysql.pythonanywhere-services.com',
+
     }
 }
 
@@ -115,7 +119,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = 'main_app/static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -127,3 +136,7 @@ REST_FRAMEWORK = {
     )
 
 }
+try:
+    from .localsetting import *
+except Exception as e:
+    print ('no local setting founded')
